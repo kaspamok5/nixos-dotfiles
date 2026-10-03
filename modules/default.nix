@@ -1,7 +1,8 @@
 { ... }:
 
 {
-  imports =
-    (path: (map (f: path + "/${f}") (builtins.attrNames (builtins.readDir path)))) ./
-    ++ [ ];
-}
+  imports = map (f: ./. + "/${f}") (
+    builtins.filter (f: f != "default.nix")
+      (builtins.attrNames (builtins.readDir ./.))
+  );
+}   
