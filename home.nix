@@ -8,7 +8,7 @@
 	programs.bash = {
 		enable = true;
 		shellAliases = {
-			nrs = "sudo nixos-rebuild switch";
+			nrs = "sudo nixos-rebuild switch --flake '/home/tux/nixos-dotfiles#nixxie'";
 		};
 
 		initExtra = ''
@@ -55,6 +55,13 @@
 	programs.gh = {
   		enable = true;
   		gitCredentialHelper.enable = true; # default
+	};
+	
+	programs.brave = {
+		enable = true;
+		extensions = [
+			"nngceckbapebfimnlniiiahkandclblb"
+		];
 	};
 	
 	home.packages = with pkgs; [
