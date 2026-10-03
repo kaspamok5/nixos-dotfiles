@@ -50,7 +50,7 @@
 		userName = "kaspamok5";
 	};
 
-	home.file.".config/qtile/".source = /home/tux/nixos-dotfiles/qtile;
+	home.file.".config/qtile/".source = ./qtile;
 
 	programs.gh = {
   		enable = true;
