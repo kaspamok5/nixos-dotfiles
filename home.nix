@@ -54,6 +54,11 @@
 		userName = "kaspamok5";
 	};
 
+	home.file.".xinitrc".text = ''
+	 picom &
+ 	 exec qtile start
+	'';
+
 	home.file.".config/qtile/".source = ./qtile;
 
 	programs.gh = {
