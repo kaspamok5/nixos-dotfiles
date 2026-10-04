@@ -11,7 +11,23 @@
       ./hardware-configuration.nix
     ];
   nixpkgs.config.allowUnfree=true;
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+
+nixpkgs.overlays = [
+    (final: prev: {
+      python3 = prev.python3.override {
+        packageOverrides = pfinal: pprev: {
+          pywlroots = pprev.pywlroots.overrideAttrs (old: {
+            buildInputs = builtins.filter
+              (p: (p.pname or p.name or "") != "wlroots")
+              (old.buildInputs or [])
+              ++ [ final.wlroots_0_20 ];
+          });
+        };
+      };
+    })
+  ];  
+
+nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
@@ -44,15 +60,16 @@ services.xserver = {
 	videoDrivers = [ "modesetting" ];
 	windowManager.qtile = {
 		enable = true;
-		#extraPackages = python3Packages: with python3Packages; [
-		#	qtile-extras
-		#];
 		package = pkgs.python3.pkgs.qtile.override {
 			wlroots = pkgs.wlroots_0_20;
+		extraPackages = python3Packages: with python3Packages; [
+      qtile-extras
+    ];
 		};
 	};
-	displayManager.startx.enable = true;		
+	displayManager.startx.enable = true;
 };
+
 
 virtualisation.vmware.guest.enable = true;  
 

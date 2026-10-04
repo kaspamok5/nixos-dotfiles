@@ -48,23 +48,12 @@
 };
 	};
 
-	programs.git = {
-		enable = true;
-		userEmail = "kaspamok5@gmail.com";
-		userName = "kaspamok5";
-	};
-
 	home.file.".xinitrc".text = ''
 	 picom &
  	 exec qtile start
 	'';
 
 	home.file.".config/qtile/".source = ./qtile;
-
-	programs.gh = {
-  		enable = true;
-  		gitCredentialHelper.enable = true; # default
-	};
 	
 	programs.brave = {
 		enable = true;
@@ -85,7 +74,7 @@
 
 	  qt = {
     enable        = true;
-    platformTheme = "gtk3";          # or "gnome" on GNOME
+    platformTheme.name = "gtk3";          # or "gnome" on GNOME
     style.name    = "adwaita-dark";
   };
 

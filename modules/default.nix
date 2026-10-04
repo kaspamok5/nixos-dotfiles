@@ -1,8 +1,9 @@
 { ... }:
 
 {
-  imports = map (f: ./. + "/${f}") (
-    builtins.filter (f: f != "default.nix")
-      (builtins.attrNames (builtins.readDir ./.))
-  );
+  imports = [
+		./rider.nix
+		./thunar.nix
+		./git.nix
+	];
 }   

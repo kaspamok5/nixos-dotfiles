@@ -7,6 +7,7 @@ from libqtile.config import Click, Drag, Group, Key, Match, Output, Screen
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
 from libqtile.widget import Volume
+#from qtile_extras.widget import PulseVolumeExtra   
 
 mod = "mod4"
 terminal = guess_terminal()
@@ -104,7 +105,7 @@ for i in groups:
     )
 
 layouts = [
-    layout.Columns(border_focus_stack=["#d75f5f", "#8f3d3d"], border_width=4),
+    layout.Columns(border_focus_stack=["#d75f5f", "#8f3d3d"], border_width=2),
     layout.Max(),
     # Try more layouts by unleashing below layouts.
     # layout.Stack(num_stacks=2),
@@ -144,12 +145,13 @@ screens = [
                 # NB Systray is incompatible with Wayland, consider using StatusNotifier instead
                 # widget.StatusNotifier(),
                 widget.Systray(),
-		Volume(
-        		icon_theme=None,  # Set to a path if you want icon-based display
-        		emoji=True,       # Use emoji for volume levels
-        		step=5,           # Volume change step in percentage
-    		),
-                widget.Clock(format="%Y-%m-%d %a %I:%M"),
+		#Volume(
+        	#	icon_theme=None,  # Set to a path if you want icon-based display
+        	#	emoji=True,       # Use emoji for volume levels
+        	#	step=5,           # Volume change step in percentage
+    		#),
+		#PulseVolumeExtra(mode="popup"),   
+                widget.Clock(format="%Y-%m-%d %a %H:%M"),
                 widget.QuickExit(),
             ],
             24,
