@@ -62,6 +62,10 @@ keys = [
     
     # 3. Launch Rofi Command/Run Menu
     Key([mod], "r", lazy.spawn("rofi -show run"), desc="Launch Rofi run menu"),
+    Key([], "XF86AudioMute", lazy.spawn("amixer -q set Master toggle")),
+    Key([], "XF86AudioLowerVolume", lazy.spawn("amixer -c 0 sset Master 1- unmute")),
+    Key([], "XF86AudioRaiseVolume", lazy.spawn("amixer -c 0 sset Master 1+ unmute")),
+    Key(["mod1"], "Shift_L", lazy.widget["keyboardlayout"].next_keyboard(), desc="Switch layout"),
 ]
 
 # Add key bindings to switch VTs in Wayland.
@@ -145,11 +149,13 @@ screens = [
                 # NB Systray is incompatible with Wayland, consider using StatusNotifier instead
                 # widget.StatusNotifier(),
                 widget.Systray(),
-		#Volume(
-        	#	icon_theme=None,  # Set to a path if you want icon-based display
-        	#	emoji=True,       # Use emoji for volume levels
-        	#	step=5,           # Volume change step in percentage
-    		#),
+		widget.TextBox("🔊"),
+		Volume(
+        		icon_theme=None,  # Set to a path if you want icon-based display
+        		emoji=False,       # Use emoji for volume levels
+        		step=5,           # Volume change step in percentage
+    		),
+		widget.KeyboardLayout(configured_keyboards=["us", "lt"]),
 		#PulseVolumeExtra(mode="popup"),   
                 widget.Clock(format="%Y-%m-%d %a %H:%M"),
                 widget.QuickExit(),
