@@ -47,9 +47,30 @@ services.xserver = {
 	displayManager.startx.enable = true;
 	xkb.layout = "us,lt";
   	xkb.options = "grp:alt_shift_toggle";
+	dpi = 168;
+	deviceSection = ''
+		Option "TearFree" "true"
+	'';
 };
 
-virtualisation.vmware.guest.enable = true;  
+
+
+environment.sessionVariables = {
+  LIBVA_DRIVER_NAME = "iHD";     # Prefer the modern iHD backend
+  # VDPAU_DRIVER = "va_gl";      # Only if using libvdpau-va-gl
+};
+
+# configuration.nix
+environment.variables = {
+  GDK_SCALE = "2";
+  GDK_DPI_SCALE = "0.75";       # 2 × 0.75 = effective 1.5×
+  QT_AUTO_SCREEN_SCALE_FACTOR = "0";
+  QT_SCALE_FACTOR = "2";
+  QT_FONT_DPI = "96";
+  _JAVA_OPTIONS = "-Dsun.java2d.uiScale=2";
+};   
+
+
   services.pipewire = {
      enable = true;
      pulse.enable = true;

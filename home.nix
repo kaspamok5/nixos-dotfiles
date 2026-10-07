@@ -8,7 +8,20 @@
 	home.username = "tux";
 	home.homeDirectory = "/home/tux";
 	home.stateVersion = "26.05";
+
+	home.sessionVariables = {
+  GDK_SCALE = "1";
+#  GDK_DPI_SCALE = "0.75";
+  QT_SCALE_FACTOR = "1";
+ # QT_FONT_DPI = "168";
+  _JAVA_OPTIONS = "-Dsun.java2d.uiScale=2";
+};
+
 	
+	xresources.properties = {
+  "Xft.dpi" = 168;
+};   
+
 	programs.bash = {
 		enable = true;
 		shellAliases = {
@@ -74,12 +87,19 @@
       			font = "JetBrainsMono Nerd Font 12";
 			                show-icons = true;
                 icon-theme = "Adwaita-dark";
+			dpi = 168;
 		};
 	};
 	
+	services.picom = {
+	enable = true;
+	backend = "xrender";
+	};
+
 	home.packages = with pkgs; [
 		bat
 		steam
 		libreoffice
+		discord
 	];
 }

@@ -4,27 +4,45 @@
 { config, lib, pkgs, modulesPath, ... }:
 
 {
-  imports = [ ];
+  imports =
+    [ (modulesPath + "/installer/scan/not-detected.nix")
+    ];
 
-  boot.initrd.availableKernelModules = [ "ata_piix" "mptspi" "uhci_hcd" "ehci_pci" "ahci" "sd_mod" "sr_mod" ];
+  boot.initrd.availableKernelModules = [ "xhci_pci" "thunderbolt" "nvme" "usb_storage" "sd_mod" ];
   boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ ];
+  boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/85e4d1ea-7112-41da-91f5-e1db768d6dcd";
+    { device = "/dev/disk/by-uuid/34d8bc66-ad3e-4a86-9b52-6c8eebc7f01a";
       fsType = "ext4";
     };
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/12CE-A600";
+    { device = "/dev/disk/by-uuid/F9A4-8B8D";
       fsType = "vfat";
       options = [ "fmask=0077" "dmask=0077" ];
     };
 
   swapDevices =
-    [ { device = "/dev/disk/by-uuid/07c10192-1548-4f22-8c13-f35292980668"; }
+    [ { device = "/dev/disk/by-uuid/63e35ae9-67a6-410d-8032-7edac4739f56"; }
     ];
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
+  hardware.cpu.intel.npu.enable = true;
+  hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+  hardware.graphics = {
+  enable = true;
+  enable32Bit = true;
+  extraPackages = with pkgs; [
+    # Required for modern Intel GPUs (Xe iGPU and ARC)
+    intel-media-driver     # VA-API (iHD) userspace
+    vpl-gpu-rt             # oneVPL (QSV) runtime
+
+    # Optional (compute / tooling):
+#    intel-compute-runtime  # OpenCL (NEO) + Level Zero for Arc/Xe
+    # NOTE: 'intel-ocl' also exists as a legacy package; not recommended for Arc/Xe.
+    # libvdpau-va-gl       # Only if you must run VDPAU-only apps
+  ];
+};
 }
