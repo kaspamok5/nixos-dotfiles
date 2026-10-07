@@ -63,7 +63,17 @@
 			"nngceckbapebfimnlniiiahkandclblb"
 		];
 	};
+	
+	programs.rofi = {
+		enable = true;
+		theme = "Arc-Dark";
 
+		extraConfig = {
+      modi = "drun,run";
+      font = "JetBrainsMono Nerd Font 12";
+    };
+	};
+	
 	home.packages = with pkgs; [
 		bat
 		steam
