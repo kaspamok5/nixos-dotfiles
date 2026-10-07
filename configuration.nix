@@ -30,6 +30,8 @@
     LC_TELEPHONE = "lt_LT.UTF-8";
     LC_TIME = "lt_LT.UTF-8";
     LC_COLLATE = "lt_LT.UTF-8";
+	LANGUAGE = "en_US.UTF-8";
+	LANG = "en_US.UTF-8";
  	 };
 	};
 
@@ -42,10 +44,18 @@ services.xserver = {
 			wlroots = pkgs.wlroots_0_20;
 		};
 	};
+	desktopManager = {
+		xterm.enable = false;
+		xfce.enable = true;
+	};
 	displayManager.startx.enable = true;
+	displayManager.lightdm.enable = true;
 	xkb.layout = "us,lt";
   	xkb.options = "grp:alt_shift_toggle";
 };
+
+services.displayManager.defaultSession = "xfce";
+
 virtualisation.vmware.guest.enable = true;  
   services.pipewire = {
      enable = true;
