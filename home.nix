@@ -68,10 +68,13 @@
 		enable = true;
 		theme = "Arc-Dark";
 
+
 		extraConfig = {
-      modi = "drun,run";
-      font = "JetBrainsMono Nerd Font 12";
-    };
+      			modi = "drun,run";
+      			font = "JetBrainsMono Nerd Font 12";
+			                show-icons = true;
+                icon-theme = "Adwaita-dark";
+		};
 	};
 	
 	home.packages = with pkgs; [

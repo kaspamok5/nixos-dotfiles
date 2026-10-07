@@ -76,7 +76,8 @@ programs.dconf.enable = true;
 	pavucontrol
 	alsa-utils
 	git
-   ];
+	networkmanagerapplet   
+];
 fonts.packages = with pkgs; [
 	nerd-fonts.jetbrains-mono
 	corefonts
