@@ -13,6 +13,8 @@
 		enable = true;
 		shellAliases = {
 			nrs = "sudo nixos-rebuild switch --flake '/home/tux/nixos-dotfiles#nixxie'";
+			nrb = "sudo nixos-rebuild boot --flake '/home/tux/nixos-dotfiles#nixxie'";
+			ncg = "sudo nix-collect-garbage -d";
 		};
 
 		initExtra = ''
