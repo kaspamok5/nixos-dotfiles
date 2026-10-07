@@ -149,6 +149,15 @@ screens = [
                 # NB Systray is incompatible with Wayland, consider using StatusNotifier instead
                 # widget.StatusNotifier(),
                 widget.Systray(),
+		widget.Battery(
+    			charge_char='',
+    			discharge_char='',
+			#fontsize = 64,
+			format='{char} {percent:2.0%} {hour:d}:{min:02d}',
+    			low_percentage=0.15,
+    			low_foreground='FF0000',
+    			update_interval=30,
+		),
 		widget.TextBox("🔊"),
 		Volume(
         		icon_theme=None,  # Set to a path if you want icon-based display
